@@ -1,0 +1,46 @@
+#!/usr/bin/python
+from random import randint
+#defining the board / terms
+board = []
+
+difficulty = {"easy":8, "medium":6, "hard":4}
+
+#checks to see if input is an integer, loops if not
+def test_input(ask, max):
+    x = 0
+    while True:
+        try:
+            x = int(input(ask))
+        except ValueError:
+            print ("This is a simple game, just use numbers. Ex. 1,2,3...")
+            continue
+        else:
+            if x > max:
+                print ("That value is too high, please keep it to " + str(max) +" or less")
+                continue
+            else:
+                return x
+
+#used to select 1 or 2 players
+def select_players():
+    print ("How many players? (Max of 2)")
+    players = int(test_input("1 or 2 Players?: ", 2))
+    print ("This will be  a " + str(players) + " player game.")
+    return players
+
+def select_board():
+    print ("Select the size of your board. (Max of 15)")
+    wide = test_input("How wide do you want the board?: ", 15)
+    high = test_input("How high do you want the board?: ", 15)
+    for x in range(high):
+        board.append(["O"] * int(wide))
+    print ("we will be using a " + str(wide) + " by " + str(high) + " board")
+    for row in board:
+        print (" ".join(row))
+    return randint(0, len(board) -1), randint(0, len(board[0]) -1)
+
+players = select_players()
+location =  (select_board())
+
+print (players)
+print (location)
